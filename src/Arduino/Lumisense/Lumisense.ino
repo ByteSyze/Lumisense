@@ -7,7 +7,8 @@ const char r = 3; //Red channel on LED strip
 const char g = 5; //Green channel on LED  strip
 const char b = 6; //Blue channel on LED strip
 
-const uint32_t ledTimeout = 0; //How long the led strip should be turned on for, in miliseconds.
+const uint32_t ledTimeout = 1000; //How long the led strip should be turned on for, in miliseconds.
+const uint32_t fadeTimeout = 50; //How long to wait between fade interpolations, in miliseconds.
 
 //The various states of the controller.
 //sensing   - waits for a trigger to go high from any of the motion sensors, then sets the state to fadein
@@ -22,7 +23,14 @@ enum state
 
 state currentState = sensing;
 
+//Current values of respective RGB channels. These values will approach their respective target values in the fade states.
+uint16_t currentRed, currentGreen, currentBlue;
+
+//Target values of respective RGB channels.
+uint16_t targetRed, targetGreen, targetBlue;
+
 bool isSensingMotion();
+uint16_t fade(uint16_t, uint16_t);
 
 void setup()
 {
@@ -35,14 +43,17 @@ void loop()
 {
     if(currentState == sensing)
     {
-        
-
         if(isSensingMotion())
           currentState = fadein;
     }
     else if(currentState == fadein)
     {
-      //TODO add fade in code
+      currentRed = fade(currentRed, targetRed);
+      currentGreen = fade(currentGreen, targetGreen);
+      currentBlue = fade(currentBlue, targetBlue);
+      
+      delay(fadeTimeout);
+      
       currentState = timeout;
     }
     else if(currentState == timeout)
@@ -59,7 +70,12 @@ void loop()
     }
     else if(currentState == fadeout)
     {
-      //TODO add fade in code
+      currentRed = fade(currentRed, targetRed);
+      currentGreen = fade(currentGreen, targetGreen);
+      currentBlue = fade(currentBlue, targetBlue);
+      
+      delay(fadeTimeout);
+      
       currentState = sensing;
     }
 }
@@ -83,4 +99,14 @@ bool isSensingMotion()
   }
 
   return motionSensed;
+}
+
+/*
+ * Interpolates along a curve.
+ */
+uint16_t fade(uint16_t from, uint16_t to)
+{
+  uint16_t err = from - to;
+
+  return (err*to) / (to+pow(err,2)) + to;
 }
