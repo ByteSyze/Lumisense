@@ -1,0 +1,410 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:LumisenseLibrary
+LIBS:Lumisense-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Lumisense - IR Motion Controlled Lighting"
+Date "12/19/2016"
+Rev "1"
+Comp "Tyler Hackett"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L ArduinoNano U1
+U 1 1 58588697
+P 5650 3800
+F 0 "U1" H 6150 2950 60  0000 C CNN
+F 1 "ArduinoNano" H 5650 4650 60  0000 C CNN
+F 2 "" H 5650 3950 60  0001 C CNN
+F 3 "" H 5650 3950 60  0001 C CNN
+	1    5650 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L +12V #PWR4
+U 1 1 58588891
+P 7000 2600
+F 0 "#PWR4" H 7000 2450 50  0001 C CNN
+F 1 "+12V" H 7000 2740 50  0000 C CNN
+F 2 "" H 7000 2600 50  0000 C CNN
+F 3 "" H 7000 2600 50  0000 C CNN
+	1    7000 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR5
+U 1 1 585888EA
+P 7000 3600
+F 0 "#PWR5" H 7000 3350 50  0001 C CNN
+F 1 "GND" H 7000 3450 50  0000 C CNN
+F 2 "" H 7000 3600 50  0000 C CNN
+F 3 "" H 7000 3600 50  0000 C CNN
+	1    7000 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR3
+U 1 1 58588A49
+P 4300 3800
+F 0 "#PWR3" H 4300 3550 50  0001 C CNN
+F 1 "GND" H 4300 3650 50  0000 C CNN
+F 2 "" H 4300 3800 50  0000 C CNN
+F 3 "" H 4300 3800 50  0000 C CNN
+	1    4300 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C1
+U 1 1 58588CD7
+P 7000 3150
+F 0 "C1" H 7025 3250 50  0000 L CNN
+F 1 "10uF" H 7025 3050 50  0000 L CNN
+F 2 "" H 7000 3150 50  0000 C CNN
+F 3 "" H 7000 3150 50  0000 C CNN
+	1    7000 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L HC-SR501 U2
+U 1 1 58589346
+P 850 5200
+F 0 "U2" H 850 4950 60  0000 C CNN
+F 1 "HC-SR501" H 850 5450 60  0000 C CNN
+F 2 "" H 650 5200 60  0001 C CNN
+F 3 "" H 650 5200 60  0001 C CNN
+	1    850  5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L HC-SR501 U3
+U 1 1 585893A8
+P 850 6000
+F 0 "U3" H 850 5750 60  0000 C CNN
+F 1 "HC-SR501" H 850 6250 60  0000 C CNN
+F 2 "" H 650 6000 60  0001 C CNN
+F 3 "" H 650 6000 60  0001 C CNN
+	1    850  6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L HC-SR501 U4
+U 1 1 585894BA
+P 850 6600
+F 0 "U4" H 850 6350 60  0000 C CNN
+F 1 "HC-SR501" H 850 6850 60  0000 C CNN
+F 2 "" H 650 6600 60  0001 C CNN
+F 3 "" H 650 6600 60  0001 C CNN
+	1    850  6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L HC-SR501 U5
+U 1 1 58589541
+P 850 7200
+F 0 "U5" H 850 6950 60  0000 C CNN
+F 1 "HC-SR501" H 850 7450 60  0000 C CNN
+F 2 "" H 650 7200 60  0001 C CNN
+F 3 "" H 650 7200 60  0001 C CNN
+	1    850  7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L +12V #PWR2
+U 1 1 5858B184
+P 1250 4850
+F 0 "#PWR2" H 1250 4700 50  0001 C CNN
+F 1 "+12V" H 1250 4990 50  0000 C CNN
+F 2 "" H 1250 4850 50  0000 C CNN
+F 3 "" H 1250 4850 50  0000 C CNN
+	1    1250 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR1
+U 1 1 5858B47E
+P 1150 7550
+F 0 "#PWR1" H 1150 7300 50  0001 C CNN
+F 1 "GND" H 1150 7400 50  0000 C CNN
+F 2 "" H 1150 7550 50  0000 C CNN
+F 3 "" H 1150 7550 50  0000 C CNN
+	1    1150 7550
+	1    0    0    -1  
+$EndComp
+Text Notes 1450 7000 1    60   ~ 0
+Optional sensors
+$Comp
+L RGB-LED-STRIP D1
+U 1 1 5858D273
+P 8100 2850
+F 0 "D1" H 8250 2650 60  0000 C CNN
+F 1 "RGB-LED-STRIP" H 8100 3100 60  0000 C CNN
+F 2 "" H 8100 2850 60  0001 C CNN
+F 3 "" H 8100 2850 60  0001 C CNN
+	1    8100 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C2
+U 1 1 5858D74A
+P 7550 3150
+F 0 "C2" H 7575 3250 50  0000 L CNN
+F 1 "100uF" H 7575 3050 50  0000 L CNN
+F 2 "" H 7550 3150 50  0000 C CNN
+F 3 "" H 7550 3150 50  0000 C CNN
+	1    7550 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PN2222A Q1
+U 1 1 5858D8AA
+P 8900 3300
+F 0 "Q1" H 9100 3375 50  0000 L CNN
+F 1 "PN2222A" H 9100 3300 50  0000 L CNN
+F 2 "" H 9100 3225 50  0000 L CIN
+F 3 "" H 8900 3300 50  0000 L CNN
+	1    8900 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L PN2222A Q2
+U 1 1 5858D90E
+P 9350 3650
+F 0 "Q2" H 9550 3725 50  0000 L CNN
+F 1 "PN2222A" H 9550 3650 50  0000 L CNN
+F 2 "" H 9550 3575 50  0000 L CIN
+F 3 "" H 9350 3650 50  0000 L CNN
+	1    9350 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L PN2222A Q3
+U 1 1 5858DAB4
+P 9800 4000
+F 0 "Q3" H 10000 4075 50  0000 L CNN
+F 1 "PN2222A" H 10000 4000 50  0000 L CNN
+F 2 "" H 10000 3925 50  0000 L CIN
+F 3 "" H 9800 4000 50  0000 L CNN
+	1    9800 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR6
+U 1 1 58590597
+P 9450 4500
+F 0 "#PWR6" H 9450 4250 50  0001 C CNN
+F 1 "GND" H 9450 4350 50  0000 C CNN
+F 2 "" H 9450 4500 50  0000 C CNN
+F 3 "" H 9450 4500 50  0000 C CNN
+	1    9450 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6800 3100 6450 3100
+Wire Wire Line
+	6450 3200 6800 3200
+Wire Wire Line
+	4850 3400 4300 3400
+Wire Wire Line
+	4300 3400 4300 3800
+Wire Wire Line
+	7000 2600 7000 3000
+Wire Wire Line
+	6800 2850 7650 2850
+Wire Wire Line
+	7000 3300 7000 3600
+Wire Wire Line
+	6800 3450 7550 3450
+Wire Wire Line
+	6600 5200 1050 5200
+Wire Wire Line
+	1050 6000 6700 6000
+Wire Wire Line
+	1050 6600 6800 6600
+Wire Wire Line
+	1050 7200 6900 7200
+Wire Wire Line
+	1050 5100 1250 5100
+Wire Wire Line
+	1250 4850 1250 7100
+Wire Wire Line
+	1250 5900 1050 5900
+Connection ~ 1250 5100
+Wire Wire Line
+	1250 6500 1050 6500
+Connection ~ 1250 5900
+Wire Wire Line
+	1250 7100 1050 7100
+Connection ~ 1250 6500
+Wire Wire Line
+	1150 7300 1050 7300
+Wire Wire Line
+	1150 5300 1150 7550
+Wire Wire Line
+	1050 6700 1150 6700
+Connection ~ 1150 7300
+Wire Wire Line
+	1050 6100 1150 6100
+Connection ~ 1150 6700
+Wire Wire Line
+	1050 5300 1150 5300
+Connection ~ 1150 6100
+Wire Notes Line
+	600  7500 600  5700
+Connection ~ 7000 2850
+Wire Wire Line
+	7550 3000 7550 2850
+Connection ~ 7550 2850
+Wire Wire Line
+	7550 3450 7550 3300
+Connection ~ 7000 3450
+Wire Wire Line
+	8550 2950 9000 2950
+Wire Wire Line
+	9000 2950 9000 3100
+Wire Wire Line
+	8550 2850 9450 2850
+Wire Wire Line
+	9450 2850 9450 3450
+Wire Wire Line
+	8550 2750 9900 2750
+Wire Wire Line
+	9900 2750 9900 3800
+Wire Wire Line
+	8000 4000 8000 4950
+Wire Wire Line
+	7900 3650 7900 4850
+Wire Wire Line
+	7800 3300 7800 4750
+Wire Wire Line
+	9900 4350 9900 4200
+Wire Wire Line
+	9000 4350 9900 4350
+Wire Wire Line
+	9000 4350 9000 3500
+Wire Wire Line
+	9450 3850 9450 4500
+Connection ~ 9450 4350
+Wire Wire Line
+	6800 3200 6800 3450
+Wire Wire Line
+	6800 2850 6800 3100
+$Comp
+L R R1
+U 1 1 5859252D
+P 8400 3300
+F 0 "R1" V 8480 3300 50  0000 C CNN
+F 2 "" V 8330 3300 50  0000 C CNN
+F 3 "" H 8400 3300 50  0000 C CNN
+	1    8400 3300
+	0    1    1    0   
+$EndComp
+$Comp
+L R R2
+U 1 1 58592685
+P 8400 3650
+F 0 "R2" V 8480 3650 50  0000 C CNN
+F 2 "" V 8330 3650 50  0000 C CNN
+F 3 "" H 8400 3650 50  0000 C CNN
+	1    8400 3650
+	0    1    1    0   
+$EndComp
+$Comp
+L R R3
+U 1 1 585926C6
+P 8400 4000
+F 0 "R3" V 8480 4000 50  0000 C CNN
+F 2 "" V 8330 4000 50  0000 C CNN
+F 3 "" H 8400 4000 50  0000 C CNN
+	1    8400 4000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8000 4000 8250 4000
+Wire Wire Line
+	8550 4000 9600 4000
+Wire Wire Line
+	8550 3650 9150 3650
+Wire Wire Line
+	7900 3650 8250 3650
+Wire Wire Line
+	7800 3300 8250 3300
+Wire Wire Line
+	8550 3300 8700 3300
+Text Notes 6500 2400 0    60   ~ 0
+12V 2A Power Supply\n
+Wire Wire Line
+	6600 4200 6600 5200
+Wire Wire Line
+	6600 4200 6450 4200
+Wire Wire Line
+	6700 6000 6700 4100
+Wire Wire Line
+	6700 4100 6450 4100
+Wire Wire Line
+	6800 6600 6800 4000
+Wire Wire Line
+	6800 4000 6450 4000
+Wire Wire Line
+	6900 7200 6900 3900
+Wire Wire Line
+	6900 3900 6450 3900
+Wire Notes Line
+	600  7500 1350 7500
+Wire Notes Line
+	1350 7500 1350 5700
+Wire Notes Line
+	1350 5700 600  5700
+Wire Wire Line
+	4850 3900 4750 3900
+Wire Wire Line
+	4750 3900 4750 4750
+Wire Wire Line
+	4750 4750 7800 4750
+Wire Wire Line
+	4850 3800 4650 3800
+Wire Wire Line
+	4650 3800 4650 4850
+Wire Wire Line
+	4650 4850 7900 4850
+Wire Wire Line
+	4550 3600 4550 4950
+Wire Wire Line
+	4550 4950 8000 4950
+Wire Wire Line
+	4850 3600 4550 3600
+$EndSCHEMATC
