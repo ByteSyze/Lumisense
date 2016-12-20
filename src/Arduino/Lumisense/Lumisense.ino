@@ -1,7 +1,16 @@
+/*
+  Lumisense
+  Copyright (C) Tyler Hackett 2016
+
+  An Arduino-powered project to control lighting via motion sensing.
+*/
+
 //Threshold for considering input to be "on". The expected input is 3.3V
 #define SENSOR_ON_THRESH 100
 
 const char sensorPins[] = {A0,A1,A2,A3}; //Analog inputs connected to active HC-SR501 units.
+
+const char ambientLightPin = A4; //The analog input for determining ambient light in the room.
 
 const char r = 3; //Red channel on LED strip
 const char g = 5; //Green channel on LED  strip
