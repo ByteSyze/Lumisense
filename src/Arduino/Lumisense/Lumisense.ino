@@ -10,7 +10,7 @@
 //Theshold for ambient light. The sensing stage will be inactive if the ambient light pin is equal or greater than this threshold.
 #define AMB_LIGHT_THRESH  360
 //Threshold for considering current RGB values close enough to target RGB values.
-#define FADE_THRESH    10
+#define FADE_THRESH       50
 
 const char sensorPins[] = {A0,A1,A2,A3}; //Analog inputs connected to active HC-SR501 units.
 
@@ -152,6 +152,7 @@ bool lowAmbientLight()
 uint16_t fade(uint16_t from, uint16_t to)
 {
   uint16_t err = from - to;
+  const uint32_t gain = 2048;
 
-  return (err*(1+ to)) / (to+pow(err,2)) + to;
+  return from - ((err) / (1+pow(err,2))) * gain;
 }
