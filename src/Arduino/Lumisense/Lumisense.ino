@@ -20,7 +20,7 @@ const char r = 3; //Red channel on LED strip
 const char g = 5; //Green channel on LED  strip
 const char b = 6; //Blue channel on LED strip
 
-const uint32_t ledTimeout = 1000; //How long the led strip should be turned on for, in miliseconds.
+const uint32_t ledTimeout = 2000; //How long the led strip should be turned on for, in miliseconds.
 const uint32_t fadeTimeout = 50; //How long to wait between fade interpolations, in miliseconds.
 
 //The various states of the controller.
@@ -73,6 +73,10 @@ void loop()
         currentRed = fade(currentRed, targetRed);
         currentGreen = fade(currentGreen, targetGreen);
         currentBlue = fade(currentBlue, targetBlue);
+
+        analogWrite(r, currentRed);
+        analogWrite(g, currentGreen);
+        analogWrite(b, currentBlue);
         
         delay(fadeTimeout);
       }
@@ -101,6 +105,10 @@ void loop()
       currentRed = fade(currentRed, targetRed);
       currentGreen = fade(currentGreen, targetGreen);
       currentBlue = fade(currentBlue, targetBlue);
+
+      analogWrite(r, currentRed);
+      analogWrite(g, currentGreen);
+      analogWrite(b, currentBlue);
       
       delay(fadeTimeout);
       
@@ -145,5 +153,5 @@ uint16_t fade(uint16_t from, uint16_t to)
 {
   uint16_t err = from - to;
 
-  return (err*to) / (to+pow(err,2)) + to;
+  return (err*(1+ to)) / (to+pow(err,2)) + to;
 }
