@@ -10,7 +10,7 @@
 //Theshold for ambient light. The sensing stage will be inactive if the ambient light pin is equal or greater than this threshold.
 #define AMB_LIGHT_THRESH  360
 //Threshold for considering current RGB values close enough to target RGB values.
-#define FADE_THRESH       50
+#define FADE_THRESH       20
 
 const char sensorPins[] = {A0,A1,A2,A3}; //Analog inputs connected to active HC-SR501 units.
 
@@ -68,7 +68,7 @@ void loop()
     }
     else if(currentState == fadein)
     {
-      if(currentRed - targetRed > FADE_THRESH || currentGreen - targetGreen > FADE_THRESH || currentBlue - targetBlue > FADE_THRESH)
+      if(targetRed - currentRed > FADE_THRESH || targetGreen - currentGreen > FADE_THRESH || targetBlue - currentBlue > FADE_THRESH)
       {
         currentRed = fade(currentRed, targetRed);
         currentGreen = fade(currentGreen, targetGreen);
@@ -102,17 +102,26 @@ void loop()
     }
     else if(currentState == fadeout)
     {
-      currentRed = fade(currentRed, targetRed);
-      currentGreen = fade(currentGreen, targetGreen);
-      currentBlue = fade(currentBlue, targetBlue);
-
-      analogWrite(r, currentRed);
-      analogWrite(g, currentGreen);
-      analogWrite(b, currentBlue);
-      
-      delay(fadeTimeout);
-      
-      currentState = sensing;
+      if(currentRed > FADE_THRESH || targetGreen > FADE_THRESH || targetBlue > FADE_THRESH)
+      {
+        currentRed = fade(currentRed, 0);
+        currentGreen = fade(currentGreen, 0);
+        currentBlue = fade(currentBlue, 0);
+  
+        analogWrite(r, currentRed);
+        analogWrite(g, currentGreen);
+        analogWrite(b, currentBlue);
+        
+        delay(fadeTimeout);
+      }
+      else
+      {
+        analogWrite(r, 0);
+        analogWrite(g, 0);
+        analogWrite(b, 0);
+        
+        currentState = sensing;
+      }
     }
 }
 
@@ -152,7 +161,7 @@ bool lowAmbientLight()
 uint16_t fade(uint16_t from, uint16_t to)
 {
   uint16_t err = from - to;
-  const uint32_t gain = 2048;
+  const uint32_t gain = 512;
 
   return from - ((err) / (1+pow(err,2))) * gain;
 }
