@@ -6,7 +6,11 @@
 */
 
 //Threshold for considering input to be "on". The expected input is 3.3V
-#define SENSOR_ON_THRESH 100
+#define SENSOR_ON_THRESH  480
+//Theshold for ambient light. The sensing stage will be inactive if the ambient light pin is equal or greater than this threshold.
+#define AMB_LIGHT_THRESH  360
+//Threshold for considering current RGB values close enough to target RGB values.
+#define FADE_THRESH    10
 
 const char sensorPins[] = {A0,A1,A2,A3}; //Analog inputs connected to active HC-SR501 units.
 
@@ -39,6 +43,7 @@ uint16_t currentRed, currentGreen, currentBlue;
 uint16_t targetRed, targetGreen, targetBlue;
 
 bool isSensingMotion();
+bool lowAmbientLight();
 uint16_t fade(uint16_t, uint16_t);
 
 void setup()
@@ -52,18 +57,29 @@ void loop()
 {
     if(currentState == sensing)
     {
-        if(isSensingMotion())
+        if(isSensingMotion() && lowAmbientLight())
+        {
+          currentRed   = random(512, 1023);
+          currentGreen = random(512, 1023);
+          currentBlue  = random(512, 1023);
+          
           currentState = fadein;
+        }
     }
     else if(currentState == fadein)
     {
-      currentRed = fade(currentRed, targetRed);
-      currentGreen = fade(currentGreen, targetGreen);
-      currentBlue = fade(currentBlue, targetBlue);
-      
-      delay(fadeTimeout);
-      
-      currentState = timeout;
+      if(currentRed - targetRed > FADE_THRESH || currentGreen - targetGreen > FADE_THRESH || currentBlue - targetBlue > FADE_THRESH)
+      {
+        currentRed = fade(currentRed, targetRed);
+        currentGreen = fade(currentGreen, targetGreen);
+        currentBlue = fade(currentBlue, targetBlue);
+        
+        delay(fadeTimeout);
+      }
+      else
+      {
+        currentState = timeout;
+      }
     }
     else if(currentState == timeout)
     {
@@ -75,7 +91,10 @@ void loop()
       if(isSensingMotion())
         currentState = timeout;
       else
+      {
+        targetRed = targetGreen = targetBlue = 0;
         currentState = fadeout;
+      }
     }
     else if(currentState == fadeout)
     {
@@ -108,6 +127,15 @@ bool isSensingMotion()
   }
 
   return motionSensed;
+}
+
+/*
+ *  Returns true if ambient light is below AMB_LIGHT_THRESH.
+ *  Should not be used if the RGB strip is on.
+ */
+bool lowAmbientLight()
+{
+  return analogRead(ambientLightPin) < AMB_LIGHT_THRESH;  
 }
 
 /*
