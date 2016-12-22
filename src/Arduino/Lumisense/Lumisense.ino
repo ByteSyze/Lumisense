@@ -6,7 +6,7 @@
 */
 
 //Threshold for considering input to be "on". The expected input is 3.3V
-#define SENSOR_ON_THRESH  480
+#define SENSOR_ON_THRESH  360
 //Theshold for ambient light. The sensing stage will be inactive if the ambient light pin is equal or greater than this threshold.
 #define AMB_LIGHT_THRESH  360
 //Threshold for considering current RGB values close enough to target RGB values.
@@ -20,7 +20,7 @@ const char r = 3; //Red channel on LED strip
 const char g = 5; //Green channel on LED  strip
 const char b = 6; //Blue channel on LED strip
 
-const uint32_t ledTimeout = 2000; //How long the led strip should be turned on for, in miliseconds.
+const uint32_t ledTimeout  = 2000; //How long the led strip should be turned on for, in miliseconds.
 const uint32_t fadeTimeout = 50; //How long to wait between fade interpolations, in miliseconds.
 
 //The various states of the controller.
@@ -37,20 +37,28 @@ enum state
 state currentState = sensing;
 
 //Current values of respective RGB channels. These values will approach their respective target values in the fade states.
-uint16_t currentRed, currentGreen, currentBlue;
+float currentRed, currentGreen, currentBlue;
 
 //Target values of respective RGB channels.
-uint16_t targetRed, targetGreen, targetBlue;
+float targetRed, targetGreen, targetBlue;
 
 bool isSensingMotion();
 bool lowAmbientLight();
-uint16_t fade(uint16_t, uint16_t);
+float fade(float, float);
 
 void setup()
 {
   pinMode(r, OUTPUT);
   pinMode(g, OUTPUT);
   pinMode(b, OUTPUT);
+
+  currentRed = 0;
+  currentGreen = 0;
+  currentBlue = 0;
+
+  targetRed = 0;
+  targetGreen = 0;
+  targetBlue = 0;
 }
 
 void loop()
@@ -59,9 +67,9 @@ void loop()
     {
         if(isSensingMotion() && lowAmbientLight())
         {
-          currentRed   = random(512, 1023);
-          currentGreen = random(512, 1023);
-          currentBlue  = random(512, 1023);
+          targetRed   = random(127, 255);
+          targetGreen = random(127, 255);
+          targetBlue  = random(127, 255);
           
           currentState = fadein;
         }
@@ -116,6 +124,8 @@ void loop()
       }
       else
       {
+        currentRed = currentGreen = currentBlue = 0;
+        
         analogWrite(r, 0);
         analogWrite(g, 0);
         analogWrite(b, 0);
@@ -130,7 +140,7 @@ void loop()
  */
 bool isSensingMotion()
 {
-  bool motionSensed;
+  bool motionSensed = false;
   
   for(int i = 0; i < sizeof(sensorPins)/4; i++)
   {
@@ -158,10 +168,10 @@ bool lowAmbientLight()
 /*
  * Interpolates along a curve.
  */
-uint16_t fade(uint16_t from, uint16_t to)
+float fade(float from, float to)
 {
-  uint16_t err = from - to;
-  const uint32_t gain = 512;
+  float err = from - to;
+  const short gain = 512; //Gain should be twice the desired scale of the fade function.
 
-  return from - ((err) / (1+pow(err,2))) * gain;
+  return constrain(from - ((err) / (1+pow(err,2))) * gain, 0, (from > to ? from : to));
 }
