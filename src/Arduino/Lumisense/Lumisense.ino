@@ -8,7 +8,7 @@
 //Threshold for considering input to be "on". The expected input is 3.3V
 #define SENSOR_ON_THRESH  360
 //Theshold for ambient light. The sensing stage will be inactive if the ambient light pin is equal or greater than this threshold.
-#define AMB_LIGHT_THRESH  360
+#define AMB_LIGHT_THRESH  520
 //Threshold for considering current RGB values close enough to target RGB values.
 #define FADE_THRESH       20
 
